@@ -19,6 +19,8 @@ class FlappyGame extends FlameGame
   int startEnable = 0;
   TextPaint textPaint =
       TextPaint(style: TextStyle(color: Colors.white, fontSize: 40));
+  double velocityY = 0;
+
   @override
   Future<void> onLoad() async {
     print('loading');
@@ -58,6 +60,10 @@ class FlappyGame extends FlameGame
         birdAnime.y += 3;
         break;
     }
+    if (velocityY < 0.1) {
+      velocityY += 0.6;
+      birdAnime.y += velocityY;
+    }
     if (running == true) {
       startEnable = 3;
     }
@@ -81,8 +87,7 @@ class FlappyGame extends FlameGame
     super.onTapDown(event);
     if (running == true) {
       startEnable = 3;
-      birdAnime.y -= 50;
-      birdAnime.y -= 50;
+      velocityY = -20;
     }
     if (running == false) {
       running = true;
